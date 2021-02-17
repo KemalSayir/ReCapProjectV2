@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Abstract;
+using Core.Utilities.Results;
 
 namespace Business.Concrete
 {
@@ -18,29 +19,32 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
-        public void Add(Color Entity)
+        public IResult Add(Color Entity)
         {
             _colorDal.Add(Entity);
+            return new SuccesResult();
         }
 
-        public void Delete(Color Entity)
+        public IResult Delete(Color Entity)
         {
             _colorDal.Delete(Entity);
+            return new SuccesResult();
         }
 
-        public List<Color> GelAll()
+        public IDataResult<List<Color>> GelAll()
         {
-            return _colorDal.GetAll();
+            return new SuccesDataResult<List<Color>>(_colorDal.GetAll());
         }
 
-        public Color GetById(int id)
+        public IDataResult<Color> GetById(int id)
         {
-            return _colorDal.GetById(p=>p.Id==id);
+            return new SuccesDataResult<Color>(_colorDal.GetById(p=>p.Id==id));
         }
 
-        public void Update(Color Entity)
+        public IResult Update(Color Entity)
         {
             _colorDal.Delete(Entity);
+            return new SuccesResult();
         }
     }
 }

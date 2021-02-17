@@ -1,4 +1,5 @@
-﻿using Entities.Abstract;
+﻿using Core.Utilities.Results;
+using Entities.Abstract;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,10 +11,10 @@ namespace Business.Abstract
     public interface IServiceRepository<T> 
         where T : class, IEntity,new()
     {
-        void Add(T Entity);
-        void Delete(T Entity);
-        void Update(T Entity);
-        List<T> GelAll();
-        T GetById(int id);
+        IResult Add(T Entity);
+        IResult Delete(T Entity);
+        IResult Update(T Entity);
+        IDataResult<List<T>> GelAll();
+        IDataResult<T> GetById(int id);
     }
 }

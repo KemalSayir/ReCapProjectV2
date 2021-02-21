@@ -1,5 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
+using Bussines.Concrete;
+using DataAcces.Concrete.EntityFramework;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
 using System;
@@ -10,43 +12,84 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            UserManager userManager = new UserManager(new EfUserDal());
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
             CarManager carManager = new CarManager(new EfCarDal());
+            Console.WriteLine("Araba Kiralama Servisimize Hosgeldiniz\nLütfenAşağıdaki Seçenlerden Birini Seçiniz.\nKullanıcı Ekleme-1\nMusteri Ekleme-2\nKiralama -3");
+            int okunanDeger = Convert.ToInt32(Console.ReadLine());
 
-            foreach (var c in carManager.GetCarDetails().Data)
+            switch (okunanDeger)
             {
-                Console.WriteLine("--------------------");
-                Console.WriteLine("Arabanın ismi : {0}\nArabanın rengi : {1}\nArabanın markası : {2}\nArabanın günümüz Fiyatı : {3}",c.CarName,c.ColorName,c.BrandName,c.DailyPrice);
-                Console.WriteLine("--------------------");
+                case 1:
+                    userManager.Add(AddUser(userManager));
+                    break;
+                case 2:
+                    customerManager.Add(AddCustomer(customerManager));
+                    break;
+                case 3:
+                    rentalManager.Add(AddRental(rentalManager,carManager,customerManager));
+                    break;
+                case 4:
+
+                default:
+                    break;
             }
             
-            //ColorManager colorManager = new ColorManager(new EfColorDal());
-            //BrandManager brandManager = new BrandManager(new EfBrandDal());
-            //Car car = new Car
-            //{
-            //    ColorId = 2,
-            //    BrandId = 1,
-            //    DailyPrice = 30000,
-            //    Description = "Good",
-            //    ModelYear = 2020
-            //};
-            //Color color = new Color
-            //{
-            //    Name = "Pembe"
-            //};
-            //Brand brand = new Brand
-            //{
-            //    Name = "Toros"
-            //};
-            //carManager.GetCarDetails();
+            Console.ReadKey();
+        }
 
-            //Color color = new Color { Name = "Mavi" };
-            //colorManager.Add(color);
-            //Car car = new Car() {BrandId = 1,ColorId = 1,DailyPrice=11132,Description= "Aileler için",ModelYear=1992};
-            //carManager.Add(car);
-            //carManager.Delete(new Car {Id = 3,BrandId=1,ColorId=1,DailyPrice=199235, ModelYear = 1999,Description ="Good for family"});
-            //carManager.Delete(car);
-            //Console.WriteLine("Oldu!\n{0}\t{1}",color.Id,color.Name);
-            //Console.ReadLine();
+        private static Rental AddRental(RentalManager rentalManager,CarManager carManager,CustomerManager customerManager)
+        {
+            Console.WriteLine("Varolan Kiralama Işlemleri Llisteleniyor..");
+            foreach (var item in rentalManager.GelAll().Data)
+            {
+                Console.WriteLine($"\nKiralanan Araba :{carManager.GetById(item.CarId).Data.Name}\nŞirket Adı : {customerManager.GetById(item.CustomerId).Data.CompanyName}\nKiralama Başlangıç Tarihi : {item.RentDate}\n Kiralama Bitiş Tarihi : {item.ReturnDate}");
+            }
+            Console.WriteLine("\nSırasıyla Bilgileri Giriniz:\nCarID giriniz : ");
+            int carId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Müşteri ID Giriniz : ");
+            int customerId= Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Kiralama Tarihini giriniz : ");
+            DateTime rentDate = Convert.ToDateTime(Console.ReadLine());
+            Console.WriteLine("Geri Getireceğiniz Tarihi Giriniz : ");
+            DateTime returnTime = Convert.ToDateTime(Console.ReadLine());
+
+            return new Rental { CarId = carId,CustomerId = customerId, RentDate = rentDate, ReturnDate = returnTime };
+        }
+
+        private static Customer AddCustomer(CustomerManager customerManager)
+        {
+            Console.WriteLine("Müşterileri listeleniyor...");
+            foreach (var item in customerManager.GelAll().Data)
+            {
+                Console.WriteLine($"\nMüşteri Id : {item.UserId }\nMüşteri Kurumu : {item.CompanyName}");
+            }
+            Console.WriteLine("Sırasıyla Bilgileri Giriniz:\nKullanıcı ID giriniz : ");
+            int userId = Convert.ToInt32(Console.ReadLine());
+            Console.WriteLine("Kurum Ismi Giriniz : ");
+            string companyName = Console.ReadLine();
+
+            return new Customer { UserId = userId, CompanyName = companyName };
+        }
+
+        private static User AddUser(UserManager userManager)
+        {
+            Console.WriteLine("Kullanıcılar Listeleniyor...");
+            foreach (var item in userManager.GelAll().Data)
+            {
+                Console.WriteLine($"\nKullanıcı ismi : {item.FirstName }\nKullanıcı Soyismi : {item.LastName}\nKullanıcı Email : {item.Email}\nKullanıcı Şifresi : {item.Password}");
+            }
+            Console.WriteLine("Sırasıyla Bilgileri Giriniz:\nIsmini giriniz : ");
+            string firstname = Console.ReadLine();
+            Console.WriteLine("Soy Ismi Giriniz : ");
+            string lastName = Console.ReadLine();
+            Console.WriteLine("E-mail giriniz : ");
+            string eMail = Console.ReadLine();
+            Console.WriteLine("Sifre Giriniz : ");
+            string password = Console.ReadLine();
+
+            return new User { FirstName = firstname, LastName = lastName, Email = eMail, Password = password };
         }
     }
 }

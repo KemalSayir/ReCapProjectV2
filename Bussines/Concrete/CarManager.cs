@@ -40,15 +40,18 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GelAll()
         {
-            if (DateTime.Now.Hour == 9)
+            if (DateTime.Now.Hour == 8)
             {
-                return new ErrorDataResult<List<Car>>();
+                return new ErrorDataResult<List<Car>>("Sistem Bakımda");
             }
             return new SuccesDataResult<List<Car>>(_carDal.GetAll(),"Başarıyla Getirildi");
         }
 
         public IDataResult<Car> GetById(int id)
         {
+            var result = _carDal.GetById(p=>p.Id == id);
+            if (result == null)
+                return new ErrorDataResult<Car>("Belirtilen id ye sahip ürün bulunamadı.");
             return new SuccesDataResult<Car>(_carDal.GetById(p=>p.Id == id));
         }
 

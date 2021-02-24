@@ -31,12 +31,23 @@ namespace ConsoleUI
                     rentalManager.Add(AddRental(rentalManager,carManager,customerManager));
                     break;
                 case 4:
-
+                    break;
+                case 5:
+                    ArabalarıListele(carManager);
+                    break;
                 default:
                     break;
             }
             
             Console.ReadKey();
+        }
+
+        private static void ArabalarıListele(CarManager carManager)
+        {
+            foreach (var car in carManager.GelAll().Data)
+            {
+                Console.WriteLine(car);
+            }
         }
 
         private static Rental AddRental(RentalManager rentalManager,CarManager carManager,CustomerManager customerManager)

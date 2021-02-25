@@ -7,6 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using DataAccess.Abstract;
 using Core.Utilities.Results;
+using Core.Aspects.Autofac.Validation;
+using Bussines.ValidationRules.FluentValidation;
 
 namespace Business.Concrete
 {
@@ -19,6 +21,7 @@ namespace Business.Concrete
             _colorDal = colorDal;
         }
 
+        [ValidationAspect(typeof(ColorValidator))]
         public IResult Add(Color Entity)
         {
             _colorDal.Add(Entity);
@@ -31,7 +34,7 @@ namespace Business.Concrete
             return new SuccesResult();
         }
 
-        public IDataResult<List<Color>> GelAll()
+        public IDataResult<List<Color>> GetAll()
         {
             return new SuccesDataResult<List<Color>>(_colorDal.GetAll());
         }

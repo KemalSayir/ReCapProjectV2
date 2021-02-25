@@ -29,7 +29,7 @@ namespace DataAccess.Concrete.InMemory
             _carDal.Remove(car);
         }
 
-        public List<Car> GelAll()
+        public List<Car> GetAll()
         {
             return _carDal;
         }

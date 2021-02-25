@@ -28,7 +28,7 @@ namespace Bussines.Concrete
             return new SuccesResult("User Deleted.");
         }
 
-        public IDataResult<List<User>> GelAll()
+        public IDataResult<List<User>> GetAll()
         {
             return new SuccesDataResult<List<User>>(_userDal.GetAll(),"All User Getted.");
         }

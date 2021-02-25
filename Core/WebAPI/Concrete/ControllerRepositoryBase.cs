@@ -16,7 +16,7 @@
 //        [HttpGet("getall")]
 //        public IActionResult GetAll()
 //        {
-//            var result = _Service.GelAll();
+//            var result = _Service.GetAll();
 //            if (result.Succes)
 //                return Ok(result);
 //            return BadRequest(result);

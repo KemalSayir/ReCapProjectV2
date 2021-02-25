@@ -14,7 +14,7 @@ namespace Business.Abstract
         IResult Add(T Entity);
         IResult Delete(T Entity);
         IResult Update(T Entity);
-        IDataResult<List<T>> GelAll();
+        IDataResult<List<T>> GetAll();
         IDataResult<T> GetById(int id);
     }
 }

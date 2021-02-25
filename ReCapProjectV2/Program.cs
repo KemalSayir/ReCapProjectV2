@@ -44,7 +44,7 @@ namespace ConsoleUI
 
         private static void ArabalarıListele(CarManager carManager)
         {
-            foreach (var car in carManager.GelAll().Data)
+            foreach (var car in carManager.GetAll().Data)
             {
                 Console.WriteLine(car);
             }
@@ -53,7 +53,7 @@ namespace ConsoleUI
         private static Rental AddRental(RentalManager rentalManager,CarManager carManager,CustomerManager customerManager)
         {
             Console.WriteLine("Varolan Kiralama Işlemleri Llisteleniyor..");
-            foreach (var item in rentalManager.GelAll().Data)
+            foreach (var item in rentalManager.GetAll().Data)
             {
                 Console.WriteLine($"\nKiralanan Araba :{carManager.GetById(item.CarId).Data.Name}\nŞirket Adı : {customerManager.GetById(item.CustomerId).Data.CompanyName}\nKiralama Başlangıç Tarihi : {item.RentDate}\n Kiralama Bitiş Tarihi : {item.ReturnDate}");
             }
@@ -72,7 +72,7 @@ namespace ConsoleUI
         private static Customer AddCustomer(CustomerManager customerManager)
         {
             Console.WriteLine("Müşterileri listeleniyor...");
-            foreach (var item in customerManager.GelAll().Data)
+            foreach (var item in customerManager.GetAll().Data)
             {
                 Console.WriteLine($"\nMüşteri Id : {item.UserId }\nMüşteri Kurumu : {item.CompanyName}");
             }
@@ -87,7 +87,7 @@ namespace ConsoleUI
         private static User AddUser(UserManager userManager)
         {
             Console.WriteLine("Kullanıcılar Listeleniyor...");
-            foreach (var item in userManager.GelAll().Data)
+            foreach (var item in userManager.GetAll().Data)
             {
                 Console.WriteLine($"\nKullanıcı ismi : {item.FirstName }\nKullanıcı Soyismi : {item.LastName}\nKullanıcı Email : {item.Email}\nKullanıcı Şifresi : {item.Password}");
             }

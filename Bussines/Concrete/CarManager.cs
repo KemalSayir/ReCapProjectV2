@@ -1,8 +1,12 @@
 ﻿using Business.Abstract;
+using Bussines.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
 using Entities.DTOs;
+using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,16 +24,12 @@ namespace Business.Concrete
             _carDal = carDal;
         }
 
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccesResult("Araba Eklendi !");
-            }
-            else
-                return new ErrorResult("Girdiğiniz arabanın günlük fiyatı 0 dan küçük olmamalıdır"); 
-            
+            _carDal.Add(car);
+            return new SuccesResult("Araba Eklendi !");
+
         }
 
         public IResult Delete(Car car)
@@ -38,21 +38,21 @@ namespace Business.Concrete
             return new SuccesResult();
         }
 
-        public IDataResult<List<Car>> GelAll()
+        public IDataResult<List<Car>> GetAll()
         {
             if (DateTime.Now.Hour == 8)
             {
                 return new ErrorDataResult<List<Car>>("Sistem Bakımda");
             }
-            return new SuccesDataResult<List<Car>>(_carDal.GetAll(),"Başarıyla Getirildi");
+            return new SuccesDataResult<List<Car>>(_carDal.GetAll(), "Başarıyla Getirildi");
         }
 
         public IDataResult<Car> GetById(int id)
         {
-            var result = _carDal.GetById(p=>p.Id == id);
+            var result = _carDal.GetById(p => p.Id == id);
             if (result == null)
                 return new ErrorDataResult<Car>("Belirtilen id ye sahip ürün bulunamadı.");
-            return new SuccesDataResult<Car>(_carDal.GetById(p=>p.Id == id));
+            return new SuccesDataResult<Car>(_carDal.GetById(p => p.Id == id));
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()

@@ -27,7 +27,7 @@ namespace Bussines.Concrete
             return new SuccesResult($"{Entity.GetType()} Deleted.");
         }
 
-        public IDataResult<List<Customer>> GelAll()
+        public IDataResult<List<Customer>> GetAll()
         {
             return new SuccesDataResult<List<Customer>>(_customerDal.GetAll(),$"Customers Listed!");
         }

@@ -41,7 +41,7 @@ namespace WebAPI.Controllers
         [HttpGet("getall")]
         public IActionResult GetAll(ICarService carService)
         {
-            var result = carService.GelAll().Data;
+            var result = carService.GetAll().Data;
             return (IActionResult)result;
         }
     }

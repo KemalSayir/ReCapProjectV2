@@ -29,7 +29,7 @@ namespace Bussines.Concrete
             return new SuccesResult($"{Entity.GetType()} Deleted.");
         }
 
-        public IDataResult<List<Rental>> GelAll()
+        public IDataResult<List<Rental>> GetAll()
         {
             return new SuccesDataResult<List<Rental>>(_rentalDal.GetAll(),"Rentals Listed");
         }

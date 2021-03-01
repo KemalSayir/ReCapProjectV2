@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Entities\Concrete\" />
     <Folder Include="WebAPI\Abstract\" />
   </ItemGroup>
 

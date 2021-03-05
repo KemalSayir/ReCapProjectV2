@@ -1,7 +1,7 @@
 ﻿using Bussines.Abstract;
+using Bussines.Constant;
 using Bussines.ValidationRules.FluentValidation;
 using Core.Aspects.Autofac.Validation;
-using Core.Entities.Concrete;
 using Core.Utilities.Business;
 using Core.Utilities.FileHelper;
 using Core.Utilities.Results;
@@ -10,9 +10,6 @@ using Entities.Concrete;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Bussines.Concrete
 {

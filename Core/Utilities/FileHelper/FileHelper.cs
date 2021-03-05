@@ -1,10 +1,7 @@
-﻿using Core.Entities.Concrete;
-using Core.Utilities.Results;
+﻿using Core.Utilities.Results;
 using Microsoft.AspNetCore.Http;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Core.Utilities.FileHelper
@@ -15,7 +12,7 @@ namespace Core.Utilities.FileHelper
         {
             if (!File.Exists(path))
             {
-                return new ErrorResult(Messages.FileNotExist);
+                return new ErrorResult();
             }
             File.Delete(path);
             return new SuccesResult();

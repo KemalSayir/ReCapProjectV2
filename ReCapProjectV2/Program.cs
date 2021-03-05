@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Business.Concrete;
 using Bussines.Concrete;
+using Core.Entities.Concrete;
 using DataAcces.Concrete.EntityFramework;
 using DataAccess.Concrete.EntityFramework;
 using Entities.Concrete;
@@ -22,7 +23,7 @@ namespace ConsoleUI
             switch (okunanDeger)
             {
                 case 1:
-                    userManager.Add(AddUser(userManager));
+                    //userManager.Add(AddUser(userManager));
                     break;
                 case 2:
                     customerManager.Add(AddCustomer(customerManager));
@@ -84,23 +85,23 @@ namespace ConsoleUI
             return new Customer { UserId = userId, CompanyName = companyName };
         }
 
-        private static User AddUser(UserManager userManager)
-        {
-            Console.WriteLine("Kullanıcılar Listeleniyor...");
-            foreach (var item in userManager.GetAll().Data)
-            {
-                Console.WriteLine($"\nKullanıcı ismi : {item.FirstName }\nKullanıcı Soyismi : {item.LastName}\nKullanıcı Email : {item.Email}\nKullanıcı Şifresi : {item.Password}");
-            }
-            Console.WriteLine("Sırasıyla Bilgileri Giriniz:\nIsmini giriniz : ");
-            string firstname = Console.ReadLine();
-            Console.WriteLine("Soy Ismi Giriniz : ");
-            string lastName = Console.ReadLine();
-            Console.WriteLine("E-mail giriniz : ");
-            string eMail = Console.ReadLine();
-            Console.WriteLine("Sifre Giriniz : ");
-            string password = Console.ReadLine();
+        //private static User AddUser(UserManager userManager)
+        //{
+        //    Console.WriteLine("Kullanıcılar Listeleniyor...");
+        //    foreach (var item in userManager.GetAll().Data)
+        //    {
+        //        Console.WriteLine($"\nKullanıcı ismi : {item.FirstName }\nKullanıcı Soyismi : {item.LastName}\nKullanıcı Email : {item.Email}\nKullanıcı Şifresi : {item.Password}");
+        //    }
+        //    Console.WriteLine("Sırasıyla Bilgileri Giriniz:\nIsmini giriniz : ");
+        //    string firstname = Console.ReadLine();
+        //    Console.WriteLine("Soy Ismi Giriniz : ");
+        //    string lastName = Console.ReadLine();
+        //    Console.WriteLine("E-mail giriniz : ");
+        //    string eMail = Console.ReadLine();
+        //    Console.WriteLine("Sifre Giriniz : ");
+        //    string password = Console.ReadLine();
 
-            return new User { FirstName = firstname, LastName = lastName, Email = eMail, Password = password };
-        }
+        //    return new User { FirstName = firstname, LastName = lastName, Email = eMail, Password = password };
+        //}
     }
 }

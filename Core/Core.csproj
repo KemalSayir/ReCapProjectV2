@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="CrossCuttingConcerns\Caching\Redis\" />
     <Folder Include="WebAPI\Abstract\" />
   </ItemGroup>
 

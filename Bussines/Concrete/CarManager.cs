@@ -1,6 +1,7 @@
 ﻿using Business.Abstract;
 using Bussines.BusinessAspects.Autofac;
 using Bussines.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Caching;
 using Core.Aspects.Autofac.Validation;
 using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
@@ -27,6 +28,7 @@ namespace Business.Concrete
 
         [SecuredOperation("cars.add,admin")]
         [ValidationAspect(typeof(CarValidator))]
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Add(Car car)
         {
             _carDal.Add(car);
@@ -40,6 +42,7 @@ namespace Business.Concrete
             return new SuccesResult();
         }
 
+        [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
             if (DateTime.Now.Hour == 8)
@@ -49,6 +52,7 @@ namespace Business.Concrete
             return new SuccesDataResult<List<Car>>(_carDal.GetAll(), "Başarıyla Getirildi");
         }
 
+        [CacheAspect]
         public IDataResult<Car> GetById(int id)
         {
             var result = _carDal.GetById(p => p.Id == id);
@@ -72,6 +76,7 @@ namespace Business.Concrete
             return new SuccesDataResult<List<Car>>(_carDal.GetAll(p => p.ColorId == colorId));
         }
 
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Update(Car car)
         {
             _carDal.Update(car);

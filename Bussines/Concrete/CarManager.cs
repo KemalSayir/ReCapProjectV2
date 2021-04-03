@@ -36,6 +36,7 @@ namespace Business.Concrete
 
         }
 
+        [CacheRemoveAspect("ICarService.Get")]
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
@@ -45,7 +46,7 @@ namespace Business.Concrete
         [CacheAspect]
         public IDataResult<List<Car>> GetAll()
         {
-            if (DateTime.Now.Hour == 8)
+            if (DateTime.Now.Hour == 4)
             {
                 return new ErrorDataResult<List<Car>>("Sistem Bakımda");
             }
@@ -66,6 +67,36 @@ namespace Business.Concrete
             return new SuccesDataResult<List<CarDetailDto>>(_carDal.GetCarDetails());
         }
 
+        [CacheAspect]
+        public IDataResult<List<CarImageDetailDto>> GetCarImageDetails()
+        {
+            return new SuccesDataResult<List<CarImageDetailDto>>(CheckIfCarImagesNull(_carDal.GetCarImageDetails()));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarImageDetailDto>> GetCarImageDetailByCarId(int carId)
+        {
+            return new SuccesDataResult<List<CarImageDetailDto>>(CheckIfCarImagesNull(_carDal.GetCarImagesDetailByCarId(carId)));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarImageDetailDto>> GetCarImageDetailByColorId(int colorId)
+        {
+            return new SuccesDataResult<List<CarImageDetailDto>>(CheckIfCarImagesNull(_carDal.GetCarImagesDetailByColorId(colorId)));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarImageDetailDto>> GetCarImageDetailByBrandId(int brandId)
+        {
+            return new SuccesDataResult<List<CarImageDetailDto>>(CheckIfCarImagesNull(_carDal.GetCarImagesDetailByBrandId(brandId)));
+        }
+
+        [CacheAspect]
+        public IDataResult<List<CarImageDetailDto>> GetCarImageDetailByColorIdAndBrandId(int colorId,int brandId)
+        {
+            return new SuccesDataResult<List<CarImageDetailDto>>(CheckIfCarImagesNull(_carDal.GetCarImagesDetailByColorIdAndBrandId(colorId,brandId)));
+        }
+
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
             return new SuccesDataResult<List<Car>>(_carDal.GetAll(p => p.BrandId == brandId));
@@ -82,5 +113,18 @@ namespace Business.Concrete
             _carDal.Update(car);
             return new SuccesResult();
         }
+        
+        private List<CarImageDetailDto> CheckIfCarImagesNull(List<CarImageDetailDto> result)
+        {
+            foreach (var carImagesDetail in result)
+            {
+                if (carImagesDetail.CarImages.Count == 0)
+                {
+                    carImagesDetail.CarImages.Add(new CarImage { ImagePath = @"/Images/Soru_isareti.jpg" });
+                }
+            }
+            return result;
+        }
+
     }
 }

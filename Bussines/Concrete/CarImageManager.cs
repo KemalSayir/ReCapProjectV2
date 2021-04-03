@@ -26,9 +26,9 @@ namespace Bussines.Concrete
         public IResult Add(IFormFile Entity, CarImage carImage)
         {
             IResult result = BusinessRules.Run(CheckImageLimit(carImage));
-            if (!result.Succes)
+            if (result != null)
             {
-                return new ErrorResult(result.Message);
+                return new ErrorResult();
             }
             var path = FileHelper.WriteFile(Entity);
             _carImageDal.Add(new CarImage
@@ -78,7 +78,7 @@ namespace Bussines.Concrete
         private IResult CheckImageLimit(CarImage carImage)
         {
             var result = _carImageDal.GetAll(p=>p.CarId == carImage.CarId).Count;
-            if (result < 6)
+            if (result > 6)
             {
                 return new ErrorResult(Messages.ImageLimit);
             }
@@ -87,7 +87,7 @@ namespace Bussines.Concrete
 
         private List<CarImage> CheckIfCarImagesNullOrExist(CarImage carImage)
         {
-            string path = @"C:\Users\Bilal\source\repos\ReCapProjectV2\WebAPI\Images\Soru_isareti.jpg";
+            string path = @"\Images\Soru_isareti.jpg";
             var result = _carImageDal.GetAll(p => p.CarId == carImage.CarId);
             if (result.Count == 0)
             {

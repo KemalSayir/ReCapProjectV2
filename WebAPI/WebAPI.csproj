@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
@@ -14,6 +14,15 @@
     <ProjectReference Include="..\Core\Core.csproj" />
     <ProjectReference Include="..\DataAcces\DataAcces.csproj" />
     <ProjectReference Include="..\Entities\Entities.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\Images\1804f903-6475-44a6-800b-6fccc2005df8.PNG" />
+    <None Include="wwwroot\Images\7336e5f5-e5d8-48a5-a6dc-8ea5b8381145.PNG" />
+    <None Include="wwwroot\Images\771950c4-a298-47e9-a6a0-a5cec4733232.PNG" />
+    <None Include="wwwroot\Images\937a31c2-9b95-4a01-ac67-3ecf0d81773c.PNG" />
+    <None Include="wwwroot\Images\f1d52698-5c55-42c3-9a56-963b2073e33b.PNG" />
+    <None Include="wwwroot\Images\Soru_isareti.jpg" />
   </ItemGroup>
 
 

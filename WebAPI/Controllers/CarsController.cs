@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace WebAPI.Controllers
@@ -38,15 +39,24 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpGet("getcardetails")]
-        public IActionResult GetCarDetails()
+        [HttpGet("getcarsbybrandid")]
+        public IActionResult GetCarsByBrandId(int brandId)
         {
-            var result = _carService.GetCarDetails();
+            var result = _carService.GetCarsByBrandId(brandId);
             if (result.Succes)
                 return Ok(result);
             return BadRequest(result);
         }
 
+        [HttpGet("getcarsbycolorid")]
+        public IActionResult GetCarsByColorId(int color)
+        {
+            var result = _carService.GetCarsByColorId(color);
+            if (result.Succes)
+                return Ok(result);
+            return BadRequest(result);
+        }
+        // GetCarImageDetails()
         [HttpPost("add")]
         public IActionResult Add(Car car)
         {
@@ -74,19 +84,54 @@ namespace WebAPI.Controllers
             return BadRequest(result);
         }
 
-        [HttpPost("getcarsbycolorid")]
-        public IActionResult GetCarsByColorİd(int colorId)
+        [HttpGet("getcardetails")]
+        public IActionResult GetCarDetails()
         {
-            var result = _carService.GetCarsByColorId(colorId);
+            var result = _carService.GetCarDetails();
             if (result.Succes)
                 return Ok(result);
             return BadRequest(result);
         }
 
-        [HttpPost("getcarsbybrandid")]
-        public IActionResult GetCarsByBrandİd(int brandId)
+        [HttpGet("getcarimagesdetails")]
+        public IActionResult GetCarImagesDetails()
         {
-            var result = _carService.GetCarsByColorId(brandId);
+            var result = _carService.GetCarImageDetails();
+            if (result.Succes)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcarimagesdetail")]
+        public IActionResult GetCarImagesDetailByCarId(int carId)
+        {
+            var result = _carService.GetCarImageDetailByCarId(carId);
+            if (result.Succes)
+                return Ok(result);
+            return BadRequest(result);
+        }
+
+        [HttpGet("getcarimagesdetailbybrandid")]
+        public IActionResult GetCarImagesDetailByBrandId(int brandId)
+        {
+            var result = _carService.GetCarImageDetailByBrandId(brandId);
+            if (result.Succes)
+                return Ok(result);
+            return BadRequest(result);
+        }
+        
+        [HttpGet("getcarimagesdetailbycolorid")]
+        public IActionResult GetCarImagesDetailByColorId(int colorId)
+        {
+            var result = _carService.GetCarImageDetailByColorId(colorId);
+            if (result.Succes)
+                return Ok(result);
+            return BadRequest(result);
+        }
+        [HttpGet("getcarimagesdetailbycoloridandbrandid")]
+        public IActionResult GetCarImagesDetailByColorIdAndBrandId(int colorId,int brandId)
+        {
+            var result = _carService.GetCarImageDetailByColorIdAndBrandId(colorId,brandId);
             if (result.Succes)
                 return Ok(result);
             return BadRequest(result);

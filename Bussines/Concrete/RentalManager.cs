@@ -2,6 +2,7 @@
 using Core.Utilities.Results;
 using DataAcces.Abstract;
 using Entities.Concrete;
+using Entities.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -37,6 +38,11 @@ namespace Bussines.Concrete
         public IDataResult<Rental> GetById(int id)
         {
             return new SuccesDataResult<Rental>(_rentalDal.GetById(p=>p.Id == id));
+        }
+
+        public IDataResult<List<RentalDetailDto>> GetRentalsDetails()
+        {
+            return new SuccesDataResult<List<RentalDetailDto>>(_rentalDal.GetRentalDetails());
         }
 
         public IResult Update(Rental Entity)

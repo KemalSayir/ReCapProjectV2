@@ -19,13 +19,14 @@ namespace Core.Utilities.FileHelper
         }
         public static async Task<string> WriteFile(IFormFile file)
         {
-            string fileName, path;
+            string fileName, path, returnPath;
             try
             {
                 // i looked this web site : https://www.codeproject.com/Articles/1256591/Upload-Image-to-NET-Core-2-1-API
                 var extension = "." + file.FileName.Split('.')[file.FileName.Split('.').Length - 1];
-                fileName = NewGuid(extension);      //Create a new Name            //for the file due to security reasons.
-                path = Path.Combine(Directory.GetCurrentDirectory(), "Images", fileName);
+                fileName = NewGuid(extension);      //Create a new Name for the file due to security reasons.
+                path = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot\\Images" , fileName);
+                returnPath = "Images\\" + fileName;
 
                 using (var bits = new FileStream(path, FileMode.Create))
                 {
@@ -38,7 +39,7 @@ namespace Core.Utilities.FileHelper
                 return e.Message;
             }
 
-            return path;
+            return returnPath;
         }
         private static string NewGuid(string extension)
         {

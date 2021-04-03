@@ -54,6 +54,31 @@ namespace DataAccess.Concrete.InMemory
             throw new NotImplementedException();
         }
 
+        public List<CarImageDetailDto> GetCarImageDetails(Expression<Func<CarImageDetailDto, bool>> filter = null)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarImageDetailDto> GetCarImagesDetailByBrandId(int brandId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarImageDetailDto> GetCarImagesDetailByCarId(int carId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarImageDetailDto> GetCarImagesDetailByColorId(int colorId)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<CarImageDetailDto> GetCarImagesDetailByColorIdAndBrandId(int colorId, int brandId)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Update(Car car)
         {
             var car1 = _carDal.SingleOrDefault(p => p.Id == car.Id);

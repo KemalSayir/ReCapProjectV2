@@ -1,19 +1,16 @@
 ﻿using Autofac;
-using Business.Abstract;
-using Bussines.Abstract;
-using Business.Concrete;
-using Bussines.Concrete;
-using DataAcces.Abstract;
-using DataAccess.Abstract;
-using DataAcces.Concrete.EntityFramework;
-using DataAccess.Concrete.EntityFramework;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Autofac.Extras.DynamicProxy;
+using Business.Abstract;
+using Business.Concrete;
+using Bussines.Abstract;
+using Bussines.Concrete;
 using Castle.DynamicProxy;
 using Core.Utilities.Interceptors;
 using Core.Utilities.Security.JWT;
+using DataAcces.Abstract;
+using DataAcces.Concrete.EntityFramework;
+using DataAccess.Abstract;
+using DataAccess.Concrete.EntityFramework;
 
 namespace Bussines.DependencyResolves.Autofac
 {
@@ -47,6 +44,9 @@ namespace Bussines.DependencyResolves.Autofac
 
             var assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
+
+            // alttaki kod satırı bizim her ayrı business kodumuz çalışırken yapılması isteneni belirtiyorki buda AspectInterceptorSelector'ü o methoda göre çagırmak
+            // assembly ise bize bu katmanımızın.dll sini veriyor anladıgım kadarıylada burayı yani Business'ı referans saglıyor diyebiliriz.
             builder.RegisterAssemblyTypes(assembly).AsImplementedInterfaces()
                 .EnableInterfaceInterceptors(new ProxyGenerationOptions()
                 {

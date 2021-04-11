@@ -72,5 +72,14 @@ namespace WebAPI.Controllers
                 return Ok(result);
             return BadRequest(result);
         }
+
+        [HttpPost("hireacar")]
+        public IActionResult HireACar(CardInformations CardInformations)
+        {
+            var result = _rentalService.HireACar(CardInformations);
+            if (result.Succes)
+                return Ok(result);
+            return BadRequest(result);
+        }
     }
 }
